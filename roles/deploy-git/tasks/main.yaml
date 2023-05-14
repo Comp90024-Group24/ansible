@@ -1,0 +1,20 @@
+- name: Install Git
+  apt:
+    name: 
+      - git
+      - nodejs
+    state: present
+
+- name: git clone 
+  git:
+    repo: "{{my_backend_repo}}"
+    dest: "{{root_path}}{{backend_path}}"
+    # single_branch: yes
+    version: main
+
+- name: git clone
+  git:
+    repo: "{{my_frontend_repo}}"
+    dest: "{{root_path}}{{frontend_path}}"
+    # single_branch: yes
+    version: main

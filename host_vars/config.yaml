@@ -1,0 +1,13 @@
+#sudo apt-get update
+#sudo apt-get install software-properties-common
+#sudo apt-get install ansible
+
+my_backend_repo: https://github.com/Comp90024-Group24/Backend.git
+my_frontend_repo: https://github.com/Comp90024-Group24/Frontend.git
+my_harvest_repo:
+root_path: /home/ubuntu/
+backend_path: project/Backend
+frontend_path: project/Frontend
+harvest_path: project/Harvest
+
+dockerfile_path:  /Dockerfile
