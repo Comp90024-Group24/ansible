@@ -18,11 +18,15 @@
       dockerfile: "{{root_path}}{{frontend_path}}{{dockerfile_path}}"
     source: build
 
+
 - name: Run Vue docker container
   community.docker.docker_container:
     name: frontend-container
     image: frontend-image
     state: started
     container_default_behavior: no_defaults
+    network_mode: my-network
+    networks:
+      - name: my-network
     published_ports:
-      - "3000:3000"
+      - "3000:8080"

@@ -1,0 +1,28 @@
+- name: Stop and remove existing Harvester container
+  community.docker.docker_container: 
+    name: harvest-container
+    state: absent
+    force_kill: yes
+    container_default_behavior: no_defaults
+
+- name: Remove existing Harvester docker image
+  community.docker.docker_image:
+    name: harvest-image
+    state: absent
+
+- name: Build new Harvester docker image
+  community.docker.docker_image:
+    name: harvest-image
+    build:
+      path: "{{root_path}}{{harvest_path}}"
+      dockerfile: "{{root_path}}{{harvest_path}}{{dockerfile_path}}"
+    source: build
+
+- name: Run Harvester docker container
+  community.docker.docker_container:
+    name: harvest-container
+    image: harvest-image
+    state: started
+    container_default_behavior: no_defaults
+    published_ports:
+      - "8080:80"

@@ -2,7 +2,7 @@
   community.docker.docker_container: 
     name: backend-container
     state: absent
-    force_kill: yes
+    force_kill: yes    #stop the progress
     container_default_behavior: no_defaults
 
 - name: Remove existing Flask docker image
@@ -24,5 +24,8 @@
     image: backend-image
     state: started
     container_default_behavior: no_defaults
+    network_mode: my-network
+    networks:
+      - name: my-network
     published_ports:
       - "8000:8000"
