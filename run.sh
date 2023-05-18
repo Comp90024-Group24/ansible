@@ -1,1 +1,1 @@
-ansible-playbook  -i inventory/hosts.ini setup.yaml
+. ./openrc.sh;ansible-playbook  -i inventory/hosts.ini setup.yaml

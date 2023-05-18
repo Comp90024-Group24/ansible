@@ -26,3 +26,4 @@
     container_default_behavior: no_defaults
     published_ports:
       - "8080:80"
+
