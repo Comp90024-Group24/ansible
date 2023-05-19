@@ -1,29 +1,21 @@
-- name: Stop and remove existing Harvester container
-  community.docker.docker_container: 
-    name: harvest-container
-    state: absent
-    force_kill: yes
-    container_default_behavior: no_defaults
+- name: Install necessary packages
+  apt:
+    name:
+      - python3.11
+      - python3-pip
+      - gcc
+      - g++
+      - make
+      - openmpi-bin
+      - libopenmpi-dev
+    state: present
 
-- name: Remove existing Harvester docker image
-  community.docker.docker_image:
-    name: harvest-image
-    state: absent
 
-- name: Build new Harvester docker image
-  community.docker.docker_image:
-    name: harvest-image
-    build:
-      path: "{{root_path}}{{harvest_path}}"
-      dockerfile: "{{root_path}}{{harvest_path}}{{dockerfile_path}}"
-    source: build
+- name: Install Python dependencies
+  pip:
+    requirements: "{{ root_path }}{{ harvest_path }}/requirements.txt"
 
-- name: Run Harvester docker container
-  community.docker.docker_container:
-    name: harvest-container
-    image: harvest-image
-    state: started
-    container_default_behavior: no_defaults
-    published_ports:
-      - "8080:80"
+- name: Run the application
+  shell: mpiexec --allow-run-as-root -n 2 python3 -m mpi4py {{ root_path }}{{ harvest_path }}/Mastodon_demo.py
+
 

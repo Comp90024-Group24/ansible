@@ -1,14 +1,14 @@
-# - hosts: localhost
-#   become: true
-#   gather_facts: true
-#   vars_files:
-#     - host_vars/config.yaml
-#   roles:
-#     - role: pre-install
-#     - role: deploy-git
-#     - role: deploy-docker
-#     - role: deploy-frontend
-#     - role: deploy-backend
+- hosts: localhost
+  become: true
+  gather_facts: true
+  vars_files:
+    - host_vars/config.yaml
+  roles:
+    - role: pre-install
+    - role: deploy-git
+    - role: deploy-docker
+    - role: deploy-frontend
+    - role: deploy-backend
 
 - name: create harvester instance
   hosts: localhost
@@ -29,7 +29,6 @@
     ansible_user: "{{ssh_user}}" 
   roles:
     - role: deploy-harvester-git
-    - role: deploy-docker
     - role: deploy-harvester
   
 
