@@ -1,0 +1,10 @@
+- hosts: localhost
+  become: true
+  gather_facts: true
+  vars_files:
+    - host_vars/config.yaml
+  roles:
+    - role: pre-install
+    - role: deploy-git
+    - role: deploy-docker
+    - role: deploy-backend
